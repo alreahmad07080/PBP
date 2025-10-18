@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | CasualKick</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="checkout-page">
+  <div class="navbar">
+    <div class="logo">CasualKick</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="cart.html">Cart</a>
+      <a href="#" class="active">Checkout</a>
+    </nav>
+  </div>
+
+  <section class="checkout-section">
+    <h2>🧾 Checkout</h2>
+    <div id="checkout-items"></div>
+    <h3 id="checkout-total" style="margin-top: 20px;"></h3>
+
+    <form id="checkout-form" class="checkout-form">
+      <h4>Data Pembeli</h4>
+      <input type="text" id="nama" placeholder="Nama Lengkap" required>
+      <input type="text" id="alamat" placeholder="Alamat Pengiriman" required>
+      <input type="tel" id="telepon" placeholder="Nomor Telepon" required>
+      <button type="submit" class="confirm-btn">Konfirmasi Pesanan</button>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 CasualKick. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    const checkoutItems = JSON.parse(localStorage.getItem("cart")) || [];
+    const checkoutContainer = document.getElementById("checkout-items");
+    const checkoutTotal = document.getElementById("checkout-total");
+
+    let total = 0;
+    checkoutItems.forEach(item => {
+      total += item.price;
+      checkoutContainer.innerHTML += `
+        <div class="checkout-row">
+          <img src="${item.image}" alt="${item.name}">
+          <div>
+            <h4>${item.name}</h4>
+            <p>Rp ${item.price.toLocaleString()}</p>
+          </div>
+        </div>`;
+    });
+
+    checkoutTotal.innerText = `Total Pembayaran: Rp ${total.toLocaleString()}`;
+
+    document.getElementById("checkout-form").addEventListener("submit", e => {
+      e.preventDefault();
+      alert("Pesanan kamu telah dikonfirmasi! 🎉");
+      localStorage.removeItem("cart");
+      window.location.href = "success.html";
+    });
+  </script>
+</body>
+</html>

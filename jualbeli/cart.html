@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keranjang Belanja | CasualKick</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="produk-page">
+  <div class="navbar">
+    <div class="logo">CasualKick</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="cart.html" class="active">Cart</a>
+    </nav>
+  </div>
+
+  <section class="product-section">
+    <h2>🛒 Keranjang Belanja</h2>
+    <div id="cart-items" class="product-grid"></div>
+    <div class="cart-summary">
+  <div id="total" class="cart-total"></div>
+  <button id="checkout-btn" class="checkout-btn">Lanjut ke Checkout</button>
+</div>
+</section>
+
+  <footer>
+    <p>&copy; 2025 CasualKick. All Rights Reserved.</p>
+  </footer>
+
+<script>
+  const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+  const cartContainer = document.getElementById("cart-items");
+  const totalContainer = document.getElementById("total");
+
+  function renderCart() {
+    cartContainer.innerHTML = "";
+    let total = 0;
+
+    cartItems.forEach((item, index) => {
+      total += item.price;
+      cartContainer.innerHTML += `
+        <div class="cart-row">
+          <div class="cart-left">
+            <img src="${item.image}" alt="${item.name}">
+            <div class="cart-details">
+              <h3>${item.name}</h3>
+              <p>Rp ${item.price.toLocaleString()}</p>
+            </div>
+          </div>
+          <button class="cart-remove" onclick="removeItem(${index})">×</button>
+        </div>`;
+    });
+
+    totalContainer.innerText = cartItems.length
+      ? `Total: Rp ${total.toLocaleString()}`
+      : "Keranjang kamu kosong 😢";
+  }
+
+  function removeItem(index) {
+    cartItems.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+    renderCart();
+  }
+
+  document.getElementById("checkout-btn").addEventListener("click", () => {
+    if (cartItems.length === 0) {
+      alert("Keranjang kamu masih kosong!");
+    } else {
+      window.location.href = "checkout.html";
+    }
+  });
+
+  renderCart();
+</script>

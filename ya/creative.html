@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creative CV - Colored</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f6f9;
+      color: #333;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      max-width: 1000px;
+      margin: 40px auto;
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    /* Sidebar kiri */
+    .sidebar {
+      background: linear-gradient(180deg, #00b894, #0984e3);
+      color: #fff;
+      padding: 30px 20px;
+    }
+    .sidebar img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto 20px;
+      border: 4px solid #fff;
+    }
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .sidebar p {
+      text-align: center;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+    .sidebar h3 {
+      margin-top: 20px;
+      border-bottom: 2px solid rgba(255,255,255,0.5);
+      padding-bottom: 5px;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar ul li {
+      margin: 8px 0;
+      font-size: 14px;
+    }
+
+    /* Konten kanan */
+    .main {
+      padding: 30px 40px;
+    }
+    .main h2 {
+      margin-bottom: 10px;
+      color: #2d3436;
+    }
+    .section {
+      margin-bottom: 25px;
+    }
+    .section h3 {
+      margin-bottom: 10px;
+      color: #00b894;
+      border-left: 4px solid #00b894;
+      padding-left: 8px;
+    }
+    .job, .edu {
+      margin-bottom: 15px;
+    }
+    .job h4, .edu h4 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .job span, .edu span {
+      font-size: 13px;
+      color: #666;
+    }
+    .skills span {
+      display: inline-block;
+      background: #dfe6e9;
+      padding: 5px 10px;
+      margin: 5px;
+      border-radius: 20px;
+      font-size: 13px;
+      transition: 0.3s;
+    }
+    .skills span:hover {
+      background: #00b894;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <img src="PAS PHOTO ALRE.JPG" alt="Foto Profil">
+      <h2>Alre Ahmad Satriawan</h2>
+      <p>Mahasiswa</p>
+
+      <h3>Kontak</h3>
+      <ul>
+        <li>Email: alreahmad07080@gmail.com</li>
+        <li>Telp: +62 812 2746 2178</li>
+        <li>Alamat: Surabaya, Indonesia</li>
+      </ul>
+
+      <h3>Sosial Media</h3>
+      <ul>
+        <li>LinkedIn: linkedin.com/in/auwlre</li>
+        <li>Github: github.com/alreahmad07080</li>
+        <li>Instagram: @auwlre</li>
+      </ul>
+    </div>
+
+    <div class="main">
+      <div class="section">
+        <h2>Tentang Saya</h2>
+        <p>Saya adalah Mahasiswa Teknik Informatika Angkatan 2024 Universitas Negeri Surabaya</p>
+      </div>
+
+      <div class="section">
+        <h3>Pengalaman Kerja</h3>
+        <div class="job">
+          <h4>Posisi - Nama Perusahaan</h4>
+          <span>2022 - Sekarang</span>
+          <p>Deskripsi singkat tentang pekerjaan dan tanggung jawab kamu.</p>
+        </div>
+        <div class="job">
+          <h4>Posisi - Nama Perusahaan</h4>
+          <span>2020 - 2022</span>
+          <p>Deskripsi singkat tentang pekerjaan sebelumnya.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Pendidikan</h3>
+        <div class="edu">
+          <h4>Universitas Negeri Surabaya</h4>
+          <span>2024 - 2028</span>
+          <p>Teknik Informatika</p>
+        </div>
+      </div>
+
+      <div class="section skills">
+        <h3>Keahlian</h3>
+        <span>HTML</span>
+        <span>CSS</span>
+        <span>Python</span>
+        <span>UI/UX</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

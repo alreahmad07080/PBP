@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jam Digital Estetik</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      color: #f8f9fa;
+      transition: background 1.2s ease-in-out;
+      position: relative;
+    }
+
+    .sun, .moon {
+      position: absolute;
+      top: 50%;
+      left: -120px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      animation: moveAcross 35s linear infinite;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .sun {
+      background: radial-gradient(circle, #FFE47A 40%, #FF9E23 80%);
+      box-shadow: 0 0 45px rgba(255, 210, 80, 0.8);
+    }
+
+    .moon {
+      background: radial-gradient(circle at 30% 30%, #f5f5ff 70%, #cfd3ff 100%);
+      box-shadow: 0 0 40px rgba(220, 220, 255, 0.7);
+    }
+
+    @keyframes moveAcross {
+      0%   { left: -120px; top: 65%; }
+      50%  { left: calc(50% - 50px); top: 10%; }
+      100% { left: 110%; top: 65%; }
+    }
+
+    /* 💎 Wadah Jam */
+    .clock-wrap {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 22px;
+      padding: 40px 60px;
+      text-align: center;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(12px);
+      transition: transform 0.2s ease, background 1s ease;
+      z-index: 1;
+    }
+
+    .clock-wrap:hover { transform: scale(1.02); }
+
+    .time {
+      font-size: 70px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+      animation: pulse 1s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { text-shadow: 0 0 25px rgba(255, 255, 255, 0.4); transform: scale(1); }
+      50% { text-shadow: 0 0 45px rgba(255, 255, 255, 0.7); transform: scale(1.02); }
+    }
+
+    .ampm {
+      font-size: 20px;
+      vertical-align: super;
+      margin-left: 10px;
+      opacity: 0.8;
+    }
+
+    .date {
+      font-size: 18px;
+      margin-top: 10px;
+      opacity: 0.8;
+    }
+
+    .controls {
+      margin-top: 20px;
+    }
+
+    button {
+      background: linear-gradient(135deg, #8bb7f0, #5d8fd9);
+      border: none;
+      padding: 10px 18px;
+      border-radius: 10px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 14px rgba(93,143,217,0.5);
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(93,143,217,0.6);
+    }
+
+    @media (max-width: 400px) {
+      .time { font-size: 50px; }
+      .clock-wrap { padding: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sun"></div>
+  <div class="moon"></div>
+
+  <div class="clock-wrap">
+    <div>
+      <span id="time" class="time">--:--:--</span>
+      <span id="ampm" class="ampm">AM</span>
+    </div>
+    <div id="date" class="date">--</div>
+    <div class="controls">
+      <button id="toggleFormat">24-hour</button>
+    </div>
+  </div>
+
+  <script>
+    let use24Hour = true;
+    const timeEl = document.getElementById('time');
+    const ampmEl = document.getElementById('ampm');
+    const dateEl = document.getElementById('date');
+    const toggleBtn = document.getElementById('toggleFormat');
+    const sun = document.querySelector('.sun');
+    const moon = document.querySelector('.moon');
+    const body = document.body;
+
+    function pad(n) { return n < 10 ? '0' + n : n; }
+
+    function formatDate(d) {
+      const hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+      const bulan = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+      return `${hari[d.getDay()]}, ${d.getDate()} ${bulan[d.getMonth()]} ${d.getFullYear()}`;
+    }
+
+    function setThemeByTime(h) {
+      if (h >= 6 && h < 18) {
+        body.style.background = "linear-gradient(180deg, #A7C7E7, #FEEBC8)";
+        sun.style.opacity = 1;
+        moon.style.opacity = 0;
+      } else {
+        body.style.background = "linear-gradient(180deg, #1A1F3C, #0B132B)";
+        sun.style.opacity = 0;
+        moon.style.opacity = 1;
+      }
+    }
+
+    function updateClock() {
+      const now = new Date();
+      let h = now.getHours();
+      const m = now.getMinutes();
+      const s = now.getSeconds();
+
+      setThemeByTime(h);
+
+      if (use24Hour) {
+        timeEl.textContent = `${pad(h)}:${pad(m)}:${pad(s)}`;
+        ampmEl.style.display = 'none';
+        toggleBtn.textContent = '24-hour';
+      } else {
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12 || 12;
+        timeEl.textContent = `${pad(h)}:${pad(m)}:${pad(s)}`;
+        ampmEl.textContent = ampm;
+        ampmEl.style.display = 'inline';
+        toggleBtn.textContent = '12-hour';
+      }
+
+      dateEl.textContent = formatDate(now);
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      use24Hour = !use24Hour;
+      updateClock();
+    });
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
